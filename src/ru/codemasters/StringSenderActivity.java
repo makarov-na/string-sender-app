@@ -70,7 +70,7 @@ public class StringSenderActivity extends Activity {
 				cursor.moveToNext();
 			}
 			cursor.close();
-			((EditText) findViewById(R.id.testOutputDataField)).setText(writeXml(messages));
+			((EditText) findViewById(R.id.testOutputDataField)).setText(createXml(messages));
 			database.delete(DatabaseHelper.TABLE_NAME, null, null);
 			updateLocalItemsCount();
 		}
@@ -84,7 +84,7 @@ public class StringSenderActivity extends Activity {
 				+ " " + cursor.getCount());
 	}
 
-	private String writeXml(List<Map<String, String>> messages) {
+	private String createXml(List<Map<String, String>> messages) {
 		XmlSerializer serializer = Xml.newSerializer();
 		StringWriter writer = new StringWriter();
 		try {

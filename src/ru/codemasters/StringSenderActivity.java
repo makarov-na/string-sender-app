@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.app.Activity;
@@ -29,8 +35,8 @@ public class StringSenderActivity extends Activity {
 	EditText inputDataEdit;
 	EditText outputDataEdit;
 	SQLiteDatabase database;
-	SimpleDateFormat formatter=new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-	
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -70,7 +76,7 @@ public class StringSenderActivity extends Activity {
 				cursor.moveToNext();
 			}
 			cursor.close();
-			((EditText) findViewById(R.id.testOutputDataField)).setText(createXml(messages));
+			sendDataToServer(createXml(messages));
 			database.delete(DatabaseHelper.TABLE_NAME, null, null);
 			updateLocalItemsCount();
 		}
@@ -82,6 +88,24 @@ public class StringSenderActivity extends Activity {
 		cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
 		((TextView) findViewById(R.id.localItemsCountLabel)).setText(getResources().getText(R.string.local_items_count)
 				+ " " + cursor.getCount());
+	}
+
+	private void sendDataToServer(String xml) {
+
+		HttpClient client = new DefaultHttpClient();
+		String url = "http://10.0.2.2:8080/emarket/admin/index.html";
+		url="http://93.158.134.3";
+		HttpPost postMethod = new HttpPost(url);
+		try {
+			postMethod.setEntity(new StringEntity(xml));
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody=responseBody = client.execute(postMethod, responseHandler);
+			((EditText) findViewById(R.id.testOutputDataField)).setText(responseBody+"qweqweqwewe");
+		}catch (Exception exc)
+		{
+			((EditText) findViewById(R.id.testOutputDataField)).setText(exc.getMessage());
+		}
+		
 	}
 
 	private String createXml(List<Map<String, String>> messages) {

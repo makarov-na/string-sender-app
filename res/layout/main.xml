@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="wrap_content" android:padding="5px">
+	<TextView android:id="@+id/dataFieldLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/data_field_label_text" android:paddingTop="15px" />
+	<EditText xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/dataField"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="false"
+		android:layout_below="@id/dataFieldLabel"  />
+	<Button xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/saveLocalButton"
+		android:text="@string/save_local_button_text" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_below="@id/dataField" android:layout_toLeftOf="@+id/sendToServerButton" />
+	<Button xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/sendToServerButton"
+		android:text="@string/send_button_text" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_below="@id/dataField" android:layout_alignRight="@id/dataField"
+		 />
+	<TextView android:id="@+id/localItemsCountLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="" android:layout_below="@+id/sendToServerButton" />	 
+	<EditText xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/testOutputDataField"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="false" android:editable="false" 
+		android:layout_below="@+id/localItemsCountLabel"/>
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Datastore client</string>
+<string name="send_button_text">Flush data to server</string>
+<string name="save_local_button_text">Save to local store</string>
+<string name="data_field_label_text">Input text here:</string>
+<string name="local_items_count">Items in local store:</string>
+</resources>

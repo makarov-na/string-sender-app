@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class LocalStore extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME="db";
 	private static final int DATABASE_VERSION = 1;
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + TEXT
 			+ " TEXT, " + DATE + " TEXT);";
 
-	DatabaseHelper(Context context) {
+	LocalStore(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -37,14 +37,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public void addMessageToLocalStore(Message message){
 		ContentValues cv = new ContentValues();
-		cv.put(DatabaseHelper.DATE, message.getDate());
-		cv.put(DatabaseHelper.TEXT, message.getText());
-		this.getWritableDatabase().insert(DatabaseHelper.TABLE_NAME, DatabaseHelper.TEXT, cv);
+		cv.put(LocalStore.DATE, message.getDate());
+		cv.put(LocalStore.TEXT, message.getText());
+		this.getWritableDatabase().insert(LocalStore.TABLE_NAME, LocalStore.TEXT, cv);
 	}
 	
 	public List<Message> getAllMessagesFromLocalStore(){
-		String[] columns = { DatabaseHelper.TEXT, DatabaseHelper.DATE };
-		Cursor cursor = this.getWritableDatabase().query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
+		String[] columns = { LocalStore.TEXT, LocalStore.DATE };
+		Cursor cursor = this.getWritableDatabase().query(LocalStore.TABLE_NAME, columns, null, null, null, null, null);
 		List<Message> messages = new ArrayList<Message>();
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
@@ -55,8 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return messages;
 	}
 	
-	public void clearLocalStorage(){
-		this.getWritableDatabase().delete(DatabaseHelper.TABLE_NAME, null, null);
+	public void clearLocalStore(){
+		this.getWritableDatabase().delete(LocalStore.TABLE_NAME, null, null);
 	}
 	
 	public String getServiceURLFromLocalStore(){
